@@ -16,9 +16,9 @@ test("navbar is rendered", () => {
   getByText("Dark Mode");
 })
 
-test("infocard is rendered", () => {
-  const {getByTestId} = render(<InfoCard />);
-})
+// test("infocard is rendered", () => {
+//   const {getByTestId} = render(<InfoCard />);
+// })
 
 test("card title is displayed", () => {
   const {getByTestId} = render("card");

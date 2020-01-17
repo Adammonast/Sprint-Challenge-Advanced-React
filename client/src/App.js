@@ -1,8 +1,10 @@
 import React from 'react';
-import data from "./data";
+
 import InfoCard from "./Components/InfoCard";
 import Navbar from "./Components/Navbar";
 import './App.css';
+// import { response } from 'express';
+import axios from "axios";
 
 class App extends React.Component {
   constructor() {
@@ -11,14 +13,18 @@ class App extends React.Component {
       info: []
     };
     console.log("constructor is running")
-  }
+  };
 
   componentDidMount() {
-    this.setState({ 
-      info: data 
+    axios
+    .get("http://localhost:5000/api/players")
+    .then(response => {
+      console.log("response data: ", response.data)
+      this.setState({
+        info: [...response.data]
+      });
     });
-    console.log("component did mount is running", data);
-  }
+  };
 
   componentDidUpdate(prevProps, prevState) {
     console.log(
@@ -29,15 +35,16 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(...this.state.info);
     return (
       <div className="App">
         <div className="header">
           <Navbar />
           <h1>2019 Women's Olympics Players</h1>
         </div>
-        <div className="card" data-testid="card">
+        <div className="main-card" data-testid="card">
           <h2>Player Data</h2>
-          <div className="card-info">
+          <div className="info">
             <InfoCard info={this.state.info} />
           </div>
         </div>
